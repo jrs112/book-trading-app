@@ -13,13 +13,32 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
+            <nav class="navbar navbar-inverse">
+                 <div class="container-fluid">
+                   <div class="navbar-header">
+                     <a class="navbar-brand" href="#">The Bookshelf</a>
+                   </div>
+                   <ul class="nav navbar-nav">
+                     <li class="active"><a href="#">Home</a></li>
+                     <li><a href="#">View Listings</a></li>
+                     <li><a href="#">View Profile</a></li>
+                   </ul>
+                   <ul class="nav navbar-nav navbar-right">
+                     <li><a href="indexSignUpPage.html" id = "signUp"><span class="glyphicon glyphicon-user"></span > Sign Up</a></li>
+                     <li><a href="#" id="btnLogin"> <span class= " glyphicon glyphicon-log-in"></span> Login </a></li>
+                     <li> <a href ="#" id="userEmail" class="hide"></a></li>
+                     <li><a href="#"><input type="email" placeholder="email" id="txtEmail"></a></li>
+                     <li><a href="#"><input type="password" placeholder="password" id="txtPassword"></a></li>
+                     <li><a href="#" id="btnLogOut" class="hide"><span class="glyphicon glyphicon-log-out" ></span> Log Out</a></li>
+                   </ul>
+                 </div>
+                 </nav> <!-- end of navbar -->  
+
     <div class="container">
         <div class="jumbotron text-center">
      		<h1>The Bookshelf</h1>
         	<h3>Books Books Books!</h3>
             <hr>
-            <a href="/createProfile" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-pencil"></span>Create Profile</a>
-        	<a href="/profile" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-user"></span>Login to Profile</a>
         </div>
         <div class = "row">
         	<div class = "panel panel-default">
@@ -28,9 +47,9 @@
         		</div>
         	</div>
         </div>
-        <div class = "row">
+        <!-- div class = "row">
       		<img src="../css/books.jpeg" alt="Home">
-  		</div>
+  		</div> -->
     </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
