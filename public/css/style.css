@@ -1,0 +1,16 @@
+body {
+	background-color: #EEEEEE;
+}
+
+.jumbotron {
+	background-color: #FFFFFF;
+}
+
+#desc {
+	text-align: center;
+	font-style: italic;
+}
+
+.sendProposal {
+    margin-right: 10px;
+}
