@@ -15,3 +15,7 @@ body {
     margin-right: 10px;
 }
 
+
+#postBtn {
+	float: right;
+}
