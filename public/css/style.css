@@ -19,3 +19,11 @@ body {
 #postBtn {
 	float: right;
 }
+
+#txtEmail {
+	font-color: #000000;
+}
+
+#txtPassword {
+	font-color: #000000;
+}
