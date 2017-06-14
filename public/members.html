@@ -13,27 +13,89 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
+            <nav class="navbar navbar-inverse">
+                 <div class="container-fluid">
+                   <div class="navbar-header">
+                     <a class="navbar-brand" href="#">The Bookshelf</a>
+                   </div>
+                   <ul class="nav navbar-nav">
+                     <li class="active"><a href="#">Home</a></li>
+                     <li><a href="#">View Listings</a></li>
+                     <li><a href="#">Return Home</a></li>
+                   </ul>
+                   <ul class="nav navbar-nav navbar-right">
+                     <li><a href="indexSignUpPage.html" id = "signUp"><span class="glyphicon glyphicon-user"></span > Sign Up</a></li>
+                     <li><a href="#" id="btnLogin"> <span class= " glyphicon glyphicon-log-in"></span> Login </a></li>
+                     <li> <a href ="#" id="userEmail" class="hide"></a></li>
+                     <li><a href="#"><input type="email" placeholder="email" id="txtEmail"></a></li>
+                     <li><a href="#"><input type="password" placeholder="password" id="txtPassword"></a></li>
+                     <li><a href="#" id="btnLogOut" class="hide"><span class="glyphicon glyphicon-log-out" ></span> Log Out</a></li>
+                   </ul>
+                 </div>
+                 </nav> <!-- end of navbar -->  
+
     <div class="container">
         <div class="jumbotron text-center">
-     		<h1>The Bookshelf</h1>
-        	<h3>Books Books Books!</h3>
+            <h1>The Bookshelf</h1>
+            <h3>Books Books Books!</h3>
             <hr>
-            <a href="/" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-pencil"></span>Create Profile</a>
-        	<a href="/profile" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-user"></span>Login to Profile</a>
         </div>
         <div class = "row">
-        	<div class = "panel panel-default">
-        		<div class = "panel-body">
-        			<h3 id ="desc">Words about stuff!</h3>
-        		</div>
-        	</div>
+            <div class = "panel panel-default">
+                <div class = "panel-heading"><h3 class="panel-title">Post a listing</h3>
+                </div>
+                <div class = "panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="titleInput" class="col-sm-2 control-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="title" class="form-control" id="titleInput" placeholder="Provde the title of your book to trade">
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="authorInput" class="col-sm-2 control-label">Author</label>
+                            <div class="col-sm-10">
+                                <input type="author" class="form-control" id="authorInput" placeholder="Provide your book's author">
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="genreInput" class="col-sm-2 control-label">Genre Preference</label>
+                            <div class="col-sm-10">
+                                <input type="genre" class="form-control" id="genreInput" placeholder="Provide the genre you hope to trade for">
+                            </div>
+                        </div>
+                    </form>
+
+                    <button type="button" class="btn btn-success" id = "postBtn">Book it!</button>
+                </div>
+            </div>
         </div>
         <div class = "row">
-      		<img src="../css/books.jpeg" alt="Home">
-  		</div>
+            <div class = "panel panel-default">
+                <div class = "panel-heading"><h3 class="panel-title">View your listings</h3>
+                </div>
+                <div class = "panel-body">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "panel panel-default">
+                <div class = "panel-heading"><h3 class="panel-title">View your offers</h3>
+                </div>
+                <div class = "panel-body">
+                </div>
+            </div>
+        </div>
+        <!-- div class = "row">
+            <img src="../css/books.jpeg" alt="Home">
+        </div> -->
     </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-  		<div class="container">
-  		</div>
+        <div class="container">
+        </div>
 </nav>
