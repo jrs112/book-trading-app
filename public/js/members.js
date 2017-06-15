@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 
 //Display Listings for specific user
+
  $.get("/api/listings", function(data) {
             createNewListingRow(data);
 });
@@ -26,6 +27,9 @@ $(document).ready(function() {
 //           }
 //         }
 // });
+
+
+
 
 //Delete Listing Functions
 function deleteListing(id) {
@@ -46,17 +50,8 @@ function handlePostDelete() {
     deletePost(currentListing.id);
   }
 
-//Puts applicable posts into array
-function initializeRows() {
-    listingCont.empty();
-    var listingArr = [];
-    for (var i = 0; i < listingArr.length; i++) {
-      listingArr.push(createNewListingRow(posts[i]));
-    }
-    listingCont.append(listingArr);
-  }
-
 //Append listings to listing pane in HTML
+
 function createNewListingRow(post) {
     for (var i = 0; i < post.length; i++) {
           if(post[i].UserId === req.id) {
@@ -66,17 +61,19 @@ function createNewListingRow(post) {
     var newListingPanel = $("<div>");
     newListingPanel.addClass("panel panel-default");
 
-    var newListingPanelHeading = $("<div>");
-    newListingPanelHeading.addClass("panel-heading");
 
-    var newListingPanelBody = $("<div>");
-    newListingPanelBody.addClass("panel-body");
 
-    //Edit and delete buttons
-    var deleteBtn = $("<button>");
-    deleteBtn.text("Remove Listing");
-    deleteBtn.addClass("delete btn btn-danger");
 
+     //Listing panel and heading
+            var newListingPanel = $("<div>");
+            newListingPanel.addClass("panel panel-default");
+
+            var newListingPanelHeading = $("<div>");
+            newListingPanelHeading.addClass("panel-heading");
+
+            var newListingPanelBody = $("<div>");
+            newListingPanelBody.addClass("panel-body");
+    
     var newListingTitle = $("<h2>");
     var newListingAuthor = $("<h3>");
     var newListingGenrePref = $("<h3>");
@@ -87,6 +84,7 @@ function createNewListingRow(post) {
     newListingUser.text("Posted by: " + req.email);
 
     //Append buttons to screen
+
     newListingPanelHeading.append(deleteBtn);
     newListingPanelHeading.append(newListingTitle);
     listingCont.append(newListingPanelHeading);
@@ -104,11 +102,16 @@ function createNewListingRow(post) {
 }
   }
 
+       
+
+
 //Append Offers to offer pane in HTML
-function createNewOfferRow(post) {
+function createNewOfferRow(data) {
+  for (var i = 0; i < data.length; i++) {
+    if(data[i].available && data[i].offer) {
     //Listing panel and heading
     var newOfferPanel = $("<div>");
-    newOfferPanel.addClass("panel panel-default");
+    newOfferPanel.addClass("panel panel-primary");
 
     var newOfferPanelHeading = $("<div>");
     newOfferPanelHeading.addClass("panel-heading");
@@ -143,6 +146,7 @@ function createNewOfferRow(post) {
     newListingPanel.data("post", post);
 
     return newOfferPanel;
+    }
   }
 
 });
