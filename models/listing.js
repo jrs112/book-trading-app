@@ -47,6 +47,12 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true
                 //unique: true
       }
+    },
+    proposal_first_name: {
+      type: DataTypes.STRING
+    },
+    proposal_last_name: {
+      type: DataTypes.STRING
     }
   },{
       timestamps: false
