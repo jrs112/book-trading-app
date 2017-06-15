@@ -43,9 +43,9 @@ $.get("/api/listings", function(data) {
             $("#pending-book-well-" + i).append("<h2>" + data[i].title + "</h2>");
             $("#pending-book-well-" + i).append("<h3>Author: " + data[i].author + "</h3>");
             $("#pending-book-well-" + i).append("<h3> Preferred Genre for Trade: " + data[i].preferred_genre + "</h3>");
-            $("#pending-book-well-" + i).append("<h4>A trade proposal has already been submitted by " + data[i].proposal_email +
-                                                ". This book will become available if the owner does not accept the offer.");
-
+            $("#pending-book-well-" + i).append("<h4>A trade proposal has already been submitted by " +
+                                                data[i].proposal_first_name  + " " + data[i].proposal_last_name +
+                                                ". This book will become available if the owner does not accept the offer.</h4>");
         }
     }
 $(".propose").on("click", function(event) {
@@ -86,11 +86,15 @@ $(".propose").on("click", function(event) {
                         var proposeTitle = $("#proposeBookTitle").val().trim();
                         var proposeAuthor = $("#proposeBookAuthor").val().trim();
                         var proposeEmail = req.email;
+                        var proposeFirstName = req.first_name;
+                        var proposeLastName = req.last_name;
                         var proposalInfo = {
                             id: results.id,
                             proposal_title: proposeTitle,
                             proposal_author: proposeAuthor,
                             proposal_email: proposeEmail,
+                            proposal_first_name: proposeFirstName,
+                            proposal_last_name: proposeLastName,
                             offer: true
                         }
                         updateProposal(proposalInfo);
