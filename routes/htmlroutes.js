@@ -18,9 +18,10 @@ module.exports = function(app) {
   app.get("/view", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.sendFile(path.join(__dirname + "/../public/view.html"));
+    }else{
+      res.redirect("/");
     }
-    res.sendFile(path.join(__dirname + "/../public/view.html"));
   });
 
   app.get("/createProfile", function(req, res) {
