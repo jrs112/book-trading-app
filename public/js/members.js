@@ -1,29 +1,33 @@
-//Display Listings for specific user
+
 $(document).ready(function() {
 
 var listingCont = $("#listingCont");
+var offerCont = $("#offerCont");
+$(document).on("click", "button.delete", handlePostDelete);
+
 var url = window.location.search;
 var userId;
 
+//Display Listings for specific user
 if(url.indexOf("?email=") !== -1) {
 		userId = url.split("=")[1];
-		getPosts(userId);
+		getListings(userId);
 	}
 else {
-	alert("No posts for this user!");
+	alert("You don't have any listings at this time!");
 	}
 
 //Display offers for a specific user's listings
-// if(url.indexOf("?offer=") !== false) {
-// 		userId = url.split("=")[1];
-// 		getOffers(userId);
-// 	}
-// else {
-// 	alert("No posts for this user!");
-// 	}
+if(url.indexOf("?email=") !== -1) {
+		userId = url.split("=")[1];
+		getOffers(userId);
+	}
+else {
+	alert("No offers at this time!");
+	}
 
-
-function getPosts(email) {
+//Get Users Listings
+function getListings(email) {
     userId = email || "";
     if (userId) {
       userId = "/?email=" + userId;
@@ -38,24 +42,43 @@ function getPosts(email) {
       }
     });
   }
+//Get available offers for user
+function getOffers(email) {
+    userId = email || "";
+    if (userId) {
+      userId = "/?email=" + userId; 
+    }
+    $.get("/api/listings" + userId, function(data) {
+      listings = data;
+      if (!listings || !listings.length) {
+        displayEmpty(email);
+      }
+      else {
+        initializeRows();
+      }
+    });
+  }
 
-  // function getOffers(email) {
-  //   userOffers = email || "";
-  //   if (userId) {
-  //     userId = "/?email=" + userId; && userOffers === true
-  //   }
-  //   $.get("/api/listings" + userId, function(data) {
-  //     listings = data;
-  //     if (!listings || !listings.length) {
-  //       displayEmpty(email);
-  //     }
-  //     else {
-  //       initializeRows();
-  //     }
-  //   });
-  // }
+//Delete Listing Functions
+function deleteListing(id) {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/listings/" + id
+    })
+    .done(function() {
+      getPosts(postCategorySelect.val());
+    });
+  }
 
+function handlePostDelete() {
+    var currentListing = $(this)
+      .parent()
+      .parent()
+      .data("post");
+    deletePost(currentListing.id);
+  }
 
+//Puts applicable posts into array 
 function initializeRows() {
     listingCont.empty();
     var listingArr = [];
@@ -65,6 +88,7 @@ function initializeRows() {
     listingCont.append(listingArr);
   }
 
+//Append listings to listing pane in HTML
 function createNewListingRow(post) {
     //Listing panel and heading
     var newListingPanel = $("<div>");
@@ -80,11 +104,6 @@ function createNewListingRow(post) {
     var deleteBtn = $("<button>");
     deleteBtn.text("Remove Listing");
     deleteBtn.addClass("delete btn btn-danger");
-
-    var editBtn = $("<button>");
-    editBtn.text("Edit Listing");
-    editBtn.addClass("edit btn btn-info");
-
 
     var newListingTitle = $("<h2>");
     var newListingAuthor = $("<h3>");
@@ -111,12 +130,51 @@ function createNewListingRow(post) {
     return newListingPanel;
   }
 
+//Append Offers to offer pane in HTML
+function createNewOfferRow(post) {
+    //Listing panel and heading
+    var newOfferPanel = $("<div>");
+    newOfferPanel.addClass("panel panel-default");
+
+    var newOfferPanelHeading = $("<div>");
+    newOfferPanelHeading.addClass("panel-heading");
+
+    var newOfferPanelBody = $("<div>");
+    newOfferPanelBody.addClass("panel-body");
+
+    //Edit and delete buttons
+    var deleteBtn = $("<button>");
+    deleteBtn.text("Remove Listing");
+    deleteBtn.addClass("delete btn btn-danger");
+
+    var newListingTitle = $("<h2>");
+    var newProposedTitle = $("<h3>");
+    var newProposedAuthor = $("<h3>");
+    var newOfferUser = $("<h5>");
+    newListingTitle.text("Title to trade: " + post.Listing.title + " ");
+    newProposedTitle.text("Proposed title to trade: " + post.Listing.proposal_title + " ");
+    newProposedAuthor.text("Author of propsed trade: " + post.Listing.proposal_author);
+    newOfferUser.text("User proposing trade: " + post.Listing.proposal_email;
+   
+    //Append buttons to screen
+    newListingPanelHeading.append(deleteBtn);
+    newListingPanelHeading.append(editBtn);
+    newListingPanelHeading.append(newListingTitle);
+
+    newListingPanelBody.append(newProposedTitle);
+    newListingPanelBody.append(newProposedAuthor);
+    newListingPanelBody.append(newOfferUser);
+
+    newListingPanel.append(newListingPanelHeading);
+    newListingPanel.append(newListingPanelBody);
+    newListingPanel.data("post", post);
+
+    return newOfferPanel;
+  }
 
 
 
 
-
-//Display Offers for a specific user
 
 
 
