@@ -1,5 +1,7 @@
 
-
+$.get("/api/userinfo", function(req) {
+    console.log(req);
+});
 // Make a get request to our api route that will return every book
 $.get("/api/listings", function(data) {
   // For each book that our server sends us back

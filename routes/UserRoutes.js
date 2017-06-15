@@ -19,6 +19,10 @@ module.exports = function(app) {
   		res.json(booksDb)
   		});
   	});
+  // pull information for current who is logged in
+  app.get("/api/userinfo", function(req, res) {
+    res.json(req.user);
+  })
 //Create listing for a user
 	app.post("/api/users", function(req, res) {
 		db.User.create(req.body).then(function(booksDb) {
