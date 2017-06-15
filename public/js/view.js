@@ -1,5 +1,7 @@
 
-
+$.get("/api/userinfo", function(req) {
+    console.log(req);
+});
 // Make a get request to our api route that will return every book
 $.get("/api/listings", function(data) {
   // For each book that our server sends us back
@@ -17,12 +19,13 @@ $.get("/api/listings", function(data) {
             $("#availableBooks").append(wellSection);
 
             // Now  we add our book data to the well we just placed on the page
-            $("#book-well-" + i).append("<h2>" + (i + 1) + ". " + data[i].title + "</h2>");
+            $("#book-well-" + i).append("<h2>" + data[i].title + "</h2>");
             $("#book-well-" + i).append("<h3>Author: " + data[i].author + "</h3>");
             $("#book-well-" + i).append("<h3> Preferred Genre for Trade: " + data[i].preferred_genre + "</h3>");
             $("#book-well-" + i).append("<button class='propose btn btn-primary' data-id='" + data[i].id + "'>Propose a Trade</button>")
 
         }
+
         if(data[i].available && data[i].offer) {
 
     // Create a parent div to hold book data
@@ -37,7 +40,7 @@ $.get("/api/listings", function(data) {
             $("#pendingBooks").append(pendingSection);
 
             // Now  we add our book data to the well we just placed on the page
-            $("#pending-book-well-" + i).append("<h2>" + (i + 1) + ". " + data[i].title + "</h2>");
+            $("#pending-book-well-" + i).append("<h2>" + data[i].title + "</h2>");
             $("#pending-book-well-" + i).append("<h3>Author: " + data[i].author + "</h3>");
             $("#pending-book-well-" + i).append("<h3> Preferred Genre for Trade: " + data[i].preferred_genre + "</h3>");
             $("#pending-book-well-" + i).append("<h4>A trade proposal has already been submitted by " + data[i].proposal_email +
