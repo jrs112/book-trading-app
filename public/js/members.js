@@ -11,11 +11,13 @@ $(document).ready(function() {
     var url = window.location.search;
     var userId;
 
+
 //Display Listings for specific user
 $.get("/api/listings", function(data) {
             createNewListingRow(data);
             console.log("add entry: "+i);
         }
+});
 
 //Display offers for a specific user's listings
 $.get("/api/listings", function(data) {
@@ -27,6 +29,7 @@ $.get("/api/listings", function(data) {
           }
         else(data[i])
         }
+});
 
 //Delete Listing Functions
 function deleteListing(id) {
@@ -47,7 +50,6 @@ function handlePostDelete() {
     deletePost(currentListing.id);
   }
 
-
 //Append listings to listing pane in HTML
 function createNewListingRow(data) {
 for (var i = 0; i < data.length; i++) {
@@ -62,24 +64,18 @@ for (var i = 0; i < data.length; i++) {
 
             var newListingPanelBody = $("<div>");
             newListingPanelBody.addClass("panel-body");
+    
+    var newListingTitle = $("<h2>");
+    var newListingAuthor = $("<h3>");
+    var newListingGenrePref = $("<h3>");
+    var newListingUser = $("<h5>");
+    newListingTitle.text(post.Listing.title + " ");
+    newListingAuthor.text("Author: " + post.Listing.author);
+    newListingAuthor.text("Preferred Genre to Trade: " + post.Listing.preferred_genre);
+    newListingUser.text("Posted by: " + post.User.email);
 
-    //Edit and delete buttons
-            var deleteBtn = $("<button>");
-            deleteBtn.text("Remove Listing");
-            deleteBtn.addClass("delete btn btn-danger");
-
-            var newListingTitle = $("<h2>");
-            var newListingAuthor = $("<h3>");
-            var newListingGenrePref = $("<h3>");
-            var newListingUser = $("<h5>");
-            newListingTitle.text(post.Listing.title + " ");
-            newListingAuthor.text("Author: " + post.Listing.author);
-            newListingAuthor.text("Preferred Genre to Trade: " + post.Listing.preferred_genre);
-            newListingUser.text("Posted by: " + post.User.email);
-          
     //Append buttons to screen
             newListingPanelHeading.append(deleteBtn);
-            newListingPanelHeading.append(editBtn);
             newListingPanelHeading.append(newListingTitle);
 
             newListingPanelBody.append(newListingAuthor);
@@ -122,7 +118,7 @@ function createNewOfferRow(data) {
     newProposedTitle.text("Proposed title to trade: " + post.Listing.proposal_title + " ");
     newProposedAuthor.text("Author of propsed trade: " + post.Listing.proposal_author);
     newOfferUser.text("User proposing trade: " + post.Listing.proposal_email);
-   
+
     //Append buttons to screen
     newListingPanelHeading.append(deleteBtn);
     newListingPanelHeading.append(editBtn);
@@ -139,9 +135,9 @@ function createNewOfferRow(data) {
     return newOfferPanel;
     }
   }
-}
 
-
+});
+});
 
 
 
