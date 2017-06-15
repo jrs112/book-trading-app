@@ -8,7 +8,7 @@ var passport = require("./config/passport");
 var expressValidator = require('express-validator');
 
 // Setting up port and requiring models for syncing
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT;
 var db = require("./models/index.js");
 require("./associations")(db);
 
