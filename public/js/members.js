@@ -11,6 +11,7 @@ $(document).ready(function() {
     var url = window.location.search;
     var userId;
 
+
 //Display Listings for specific user
     $.get("/api/listings", function(data) {
       for (var i = 0; i < data.length; i++) {
@@ -18,6 +19,7 @@ $(document).ready(function() {
             initializeRows(data);
           }
         }
+});
 
 //Display offers for a specific user's listings
 $.get("/api/listings", function(data) {
@@ -27,6 +29,7 @@ $.get("/api/listings", function(data) {
             initializeRows(data);
           }
         }
+});
 
 //Delete Listing Functions
 function deleteListing(id) {
@@ -47,7 +50,7 @@ function handlePostDelete() {
     deletePost(currentListing.id);
   }
 
-//Puts applicable posts into array 
+//Puts applicable posts into array
 function initializeRows() {
     listingCont.empty();
     var listingArr = [];
@@ -82,7 +85,7 @@ function createNewListingRow(post) {
     newListingAuthor.text("Author: " + post.Listing.author);
     newListingAuthor.text("Preferred Genre to Trade: " + post.Listing.preferred_genre);
     newListingUser.text("Posted by: " + post.User.email);
-  
+
     //Append buttons to screen
     newListingPanelHeading.append(deleteBtn);
     newListingPanelHeading.append(editBtn);
@@ -124,7 +127,7 @@ function createNewOfferRow(post) {
     newProposedTitle.text("Proposed title to trade: " + post.Listing.proposal_title + " ");
     newProposedAuthor.text("Author of propsed trade: " + post.Listing.proposal_author);
     newOfferUser.text("User proposing trade: " + post.Listing.proposal_email);
-   
+
     //Append buttons to screen
     newListingPanelHeading.append(deleteBtn);
     newListingPanelHeading.append(editBtn);
@@ -140,9 +143,9 @@ function createNewOfferRow(post) {
 
     return newOfferPanel;
   }
-}
 
-
+});
+});
 
 
 
