@@ -15,6 +15,9 @@ body {
     margin-right: 10px;
 }
 
+.sendCancel {
+    margin-right: 10px;
+}
 
 #postBtn {
 	float: right;

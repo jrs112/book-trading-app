@@ -1,7 +1,7 @@
 
 $.get("/api/userinfo", function(req) {
     console.log(req);
-});
+
 // Make a get request to our api route that will return every book
 $.get("/api/listings", function(data) {
   // For each book that our server sends us back
@@ -22,8 +22,11 @@ $.get("/api/listings", function(data) {
             $("#book-well-" + i).append("<h2>" + data[i].title + "</h2>");
             $("#book-well-" + i).append("<h3>Author: " + data[i].author + "</h3>");
             $("#book-well-" + i).append("<h3> Preferred Genre for Trade: " + data[i].preferred_genre + "</h3>");
-            $("#book-well-" + i).append("<button class='propose btn btn-primary' data-id='" + data[i].id + "'>Propose a Trade</button>")
-
+            if (req.id == data[i].UserId) {
+                $("#book-well-" + i).append("<h4>This is your book.  You can go to your profile to remove this book if you don't want to trade it.</h4>");
+            } else {
+                $("#book-well-" + i).append("<button class='propose btn btn-primary' data-id='" + data[i].id + "'>Propose a Trade</button>");
+        }
         }
 
         if(data[i].available && data[i].offer) {
@@ -46,8 +49,69 @@ $.get("/api/listings", function(data) {
             $("#pending-book-well-" + i).append("<h4>A trade proposal has already been submitted by " +
                                                 data[i].proposal_first_name  + " " + data[i].proposal_last_name +
                                                 ". This book will become available if the owner does not accept the offer.</h4>");
+            if (req.email == data[i].proposal_email) {
+                $("#pending-book-well-" + i).append("<button class='cancelProposal btn btn-danger' data-id='" + data[i].id + "'>Cancel Proposal</button>");
+            }
         }
     }
+
+
+$(".cancelProposal").on("click", function(cancelEvent) {
+    cancelEvent.preventDefault();
+    $("#pendingBooks").empty();
+    $("#pendingBooks").show();
+    var cancelProposeId = {
+        id: $(this).attr("data-id")
+    };
+    $.get("/api/listings/" + cancelProposeId.id)
+    .done(function(cancelResults) {
+        console.log(cancelResults);
+        var cancelWellSection = $("<div>");
+        cancelWellSection.addClass("well");
+        cancelWellSection.attr("id", "cancel-book-well");
+        $("#pendingBooks").append(cancelWellSection);
+        $("#cancel-book-well").append("<h2>Are you sure you want to cancel your proposal" +
+                                      " for " + cancelResults.title + " by " + cancelResults.author + "?</h2>");
+        $("#cancel-book-well").append("<button class='sendCancel btn btn-danger btn-sm'>Cancel Trade Proposal</button>");
+        $("#cancel-book-well").append("<a href='/view' class='btn btn-primary btn-sm'> Back to Proposal List</a>");
+        $(".sendCancel").on("click", function(event) {
+
+                        event.preventDefault();
+
+                        var proposeTitle = "none";
+                        var proposeAuthor = "none";
+                        var proposeEmail = "none@example.com";
+                        var proposeFirstName = "none";
+                        var proposeLastName = "none";
+                        var proposalInfo = {
+                            id: cancelResults.id,
+                            proposal_title: proposeTitle,
+                            proposal_author: proposeAuthor,
+                            proposal_email: proposeEmail,
+                            proposal_first_name: proposeFirstName,
+                            proposal_last_name: proposeLastName,
+                            offer: false
+                        }
+                        updateProposal(proposalInfo);
+                        var to = cancelResults.User.email;
+                        var subject = "Cancelled Book Proposal";
+                        var html = "<h1 class='text-center'>The proposal for " + cancelResults.title + " has been cancelled!</h1>" +
+                                   "<img src='http://images.clipartpanda.com/book-20clipart-book10.png' alt='book-image' style='width:300px;height:250px;'>" +
+                                  "<h3>The proposal was cancelled by: " + req.first_name + " " + req.last_name + " at " + req.email + "</h3>"
+                        $(".sendCancel").text("Cancelling Proposal...Please wait");
+                        $.get("http://localhost:8080/send",{to:to,subject:subject,html:html},function(dataEmail){
+                        if(dataEmail=="sent")
+                        {
+                            alert("Proposal Cancelled!");
+                            window.location.href = "/view";
+                        }
+                        });
+
+                      });
+
+    });
+});
+
 $(".propose").on("click", function(event) {
                 event.preventDefault();
                 $("#availableBooks").empty();
@@ -82,7 +146,7 @@ $(".propose").on("click", function(event) {
                 $(".sendProposal").on("click", function(event) {
 
                         event.preventDefault();
-                         $.get("/api/userinfo", function(req) {
+
                         var proposeTitle = $("#proposeBookTitle").val().trim();
                         var proposeAuthor = $("#proposeBookAuthor").val().trim();
                         var proposeEmail = req.email;
