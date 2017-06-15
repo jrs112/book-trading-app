@@ -105,7 +105,7 @@ $(".propose").on("click", function(event) {
                                   "<h2 class='text-center'>The proposal information is below:</h2>" +
                                   "<ul><li>Book Title: " + proposeTitle + "</li>" +
                                   "<li>Author: " + proposeAuthor + "</li>" +
-                                  "<li>Proposal was sent by: " + proposeEmail + "</li></ul>" +
+                                  "<li>Proposal was sent by: " + proposeFirstName + " " + proposeLastName + " at " + proposeEmail + "</li></ul>" +
                                   "<h4>Please go to <a href='https://www.w3schools.com/html/'>www.thebookshelf.com</a> to accept or reject this proposal!</h4>";
                         $(".sendProposal").text("Sending Proposal...Please wait");
                         $.get("http://localhost:8080/send",{to:to,subject:subject,html:html},function(dataEmail){
