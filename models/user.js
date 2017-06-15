@@ -1,4 +1,4 @@
-// Requiring bcrypt for password hashing. Using the bcrypt-nodejs version as the regular bcrypt module
+ // Requiring bcrypt for password hashing. Using the bcrypt-nodejs version as the regular bcrypt module
 // sometimes causes errors on Windows machines
 var bcrypt = require("bcrypt-nodejs");
 // Creating our User model
@@ -17,15 +17,42 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: true
-                //unique: true
-      },
+        isEmail: true,
+         isUnique: function(value, next) {
+
+                User.find({
+                    where: {email: value},
+                    attributes: ['id']
+                })
+                    .then(function(error, user) {
+
+                        if (error)
+                            // Some unexpected error occured with the find method.
+                            return next(error);
+
+                        if (user)
+                            // We found a user with this email address.
+                            // Pass the error to the next method.
+                            return next('Email address already in use!');
+
+                        // If we got this far, the email address hasn't been used yet.
+                        // Call next with no arguments when validation is successful.
+                        next();
+
+                    }).catch(function(error) {
+                      res.json(error);
+                          });
+
+                  
+      }
+    }
+  
     },
     // The password cannot be null
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
+    }
   },
 
   {
