@@ -1,63 +1,32 @@
 
 $(document).ready(function() {
 
-var listingCont = $("#listingCont");
-var offerCont = $("#offerCont");
-$(document).on("click", "button.delete", handlePostDelete);
+  $.get("/api/userinfo", function(req) {
+    console.log(req);
 
-var url = window.location.search;
-var userId;
+    var listingCont = $("#listingCont");
+    var offerCont = $("#offerCont");
+    $(document).on("click", "button.delete", handlePostDelete);
+
+    var url = window.location.search;
+    var userId;
 
 //Display Listings for specific user
-if(url.indexOf("?email=") !== -1) {
-		userId = url.split("=")[1];
-		getListings(userId);
-	}
-else {
-	alert("You don't have any listings at this time!");
-	}
+    $.get("/api/listings", function(data) {
+      for (var i = 0; i < data.length; i++) {
+          if(data[i].UserId === req.id) {
+            initializeRows(data);
+          }
+        }
 
 //Display offers for a specific user's listings
-if(url.indexOf("?email=") !== -1) {
-		userId = url.split("=")[1];
-		getOffers(userId);
-	}
-else {
-	alert("No offers at this time!");
-	}
-
-//Get Users Listings
-function getListings(email) {
-    userId = email || "";
-    if (userId) {
-      userId = "/?email=" + userId;
-    }
-    $.get("/api/listings" + userId, function(data) {
-      listings = data;
-      if (!listings || !listings.length) {
-        displayEmpty(email);
-      }
-      else {
-        initializeRows();
-      }
-    });
-  }
-//Get available offers for user
-function getOffers(email) {
-    userId = email || "";
-    if (userId) {
-      userId = "/?email=" + userId; 
-    }
-    $.get("/api/listings" + userId, function(data) {
-      listings = data;
-      if (!listings || !listings.length) {
-        displayEmpty(email);
-      }
-      else {
-        initializeRows();
-      }
-    });
-  }
+$.get("/api/listings", function(data) {
+  // For each book that our server sends us back
+  for (var i = 0; i < data.length; i++) {
+        if(data[i].available && data[i].offer) {
+            initializeRows(data);
+          }
+        }
 
 //Delete Listing Functions
 function deleteListing(id) {
@@ -154,7 +123,7 @@ function createNewOfferRow(post) {
     newListingTitle.text("Title to trade: " + post.Listing.title + " ");
     newProposedTitle.text("Proposed title to trade: " + post.Listing.proposal_title + " ");
     newProposedAuthor.text("Author of propsed trade: " + post.Listing.proposal_author);
-    newOfferUser.text("User proposing trade: " + post.Listing.proposal_email;
+    newOfferUser.text("User proposing trade: " + post.Listing.proposal_email);
    
     //Append buttons to screen
     newListingPanelHeading.append(deleteBtn);
@@ -171,6 +140,7 @@ function createNewOfferRow(post) {
 
     return newOfferPanel;
   }
+}
 
 
 
