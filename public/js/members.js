@@ -11,6 +11,7 @@ $(document).ready(function() {
     var url = window.location.search;
     var userId;
 
+
 //Display Listings for specific user
     $.get("/api/listings", function(data) {
       for (var i = 0; i < data.length; i++) {
@@ -29,7 +30,7 @@ $.get("/api/listings", function(data) {
           }
         }
 });
-});
+
 //Delete Listing Functions
 function deleteListing(id) {
     $.ajax({
@@ -51,7 +52,7 @@ function handlePostDelete() {
 
 //Puts applicable posts into array
 function initializeRows() {
-    $("#listingCont").empty();
+    listingCont.empty();
     var listingArr = [];
     for (var i = 0; i < listingArr.length; i++) {
       listingArr.push(createNewListingRow(posts[i]));
@@ -144,8 +145,7 @@ function createNewOfferRow(post) {
   }
 
 });
-
-
+});
 
 
 
