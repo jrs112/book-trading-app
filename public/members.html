@@ -3,7 +3,7 @@
     <head>
 
         <meta charset="UTF-8">
-        <title>The Bookshelf</title>
+        <title>View BookShelf Profile</title>
 
         <!-- Bootstrap CSS & JS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -12,37 +12,20 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
+
     <body>
-            <nav class="navbar navbar-inverse">
-                 <div class="container-fluid">
-                   <div class="navbar-header">
-                     <a class="navbar-brand" href="#">The Bookshelf</a>
-                   </div>
-                   <ul class="nav navbar-nav">
-                     <li class="active"><a href="/">Home</a></li>
-                     <li><a href="/view">View Listings</a></li>
-                     <li><a href="/">Return Home</a></li>
-                   </ul>
-                   <ul class="nav navbar-nav navbar-right">
-                     <li><a href="indexSignUpPage.html" id = "signUp"><span class="glyphicon glyphicon-user"></span > Sign Up</a></li>
-                     <li><a href="#" id="btnLogin"> <span class= " glyphicon glyphicon-log-in"></span> Login </a></li>
-                     <li> <a href ="#" id="userEmail" class="hide"></a></li>
-                     <li><a href="#"><input type="email" placeholder="email" id="txtEmail"></a></li>
-                     <li><a href="#"><input type="password" placeholder="password" id="txtPassword"></a></li>
-                     <li><a href="/logout" id="btnLogOut" ><span class="glyphicon glyphicon-log-out" ></span> Log Out</a></li>
-                   </ul>
-                 </div>
-                 </nav> <!-- end of navbar -->
 
     <div class="container">
         <div class="jumbotron text-center">
             <h1>The Bookshelf</h1>
             <h3>Books Books Books!</h3>
             <hr>
+            <a href="/" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-home"></span> Home</a>
+            <a href="/members" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-user"></span> Back To Your Profile</a>
         </div>
         <div class = "row">
-            <div class = "panel panel-default">
-                <div class = "panel-heading"><h3 class="panel-title">Post a listing</h3>
+            <div class = "panel panel-primary">
+                <div class = "panel-heading"><h1 class="panel-title"><strong>Create a listing</strong></h1>
                 </div>
                 <div class = "panel-body">
                     <form class="form-horizontal">
@@ -75,18 +58,18 @@
             </div>
         </div>
         <div class = "row">
-            <div class = "panel panel-default">
-                <div class = "panel-heading"><h3 class="panel-title">View your listings</h3>
-                </div>
-                <div id = "listingCont">
+            <div class = "panel panel-primary">
+                <div class = "panel-heading"><h3 class="panel-title"><strong>View your listings</h3></strong></div>
+                <div class = "panel-body">
+                <div id = "listingCont"></div>
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "panel panel-default">
-                <div class = "panel-heading"><h3 class="panel-title">View your offers</h3>
-                </div>
-                <div id = "offerCont">
+            <div class = "panel panel-primary">
+                <div class = "panel-heading"><h3 class="panel-title"><strong>View your offers</h3></strong></div>
+                <div class = "panel-body">
+                <div id = "offerCont"></div>
                 </div>
             </div>
         </div>
@@ -95,13 +78,8 @@
         </div> -->
     </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-        </div>
-</nav>
-
-
 <script type="text/javascript" src="js/members.js"></script>
+
 </body>
-</html>
+
 
