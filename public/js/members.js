@@ -5,7 +5,6 @@ $(document).ready(function() {
 
     var listingCont = $("#listingCont");
     var offerCont = $("#offerCont");
-    $(document).on("click", "button.delete", handlePostDelete);
 
     var url = window.location.search;
     var userId;
@@ -23,23 +22,18 @@ $(document).ready(function() {
 
 
 //Delete Listing Functions
-function deleteListing(id) {
-    $.ajax({
-      method: "DELETE",
-      url: "/api/listings/" + id
-    })
-    .done(function() {
-      getPosts(postCategorySelect.val());
+function deleteListing() {
+    var info = {
+      id: $(this).attr("data-id")
+    };
+    $.post("/api/delete/" + info.id)
+    .done(function(deldata) {
+      console.log(deldata);
+      console.log("Deleted Successfully");
+      window.location.href = "/members";
     });
   }
 
-function handlePostDelete() {
-    var currentListing = $(this)
-      .parent()
-      .parent()
-      .data("post");
-    deletePost(currentListing.id);
-  }
 
 //Append listings to listing pane in HTML
 
@@ -60,10 +54,13 @@ function createNewListingRow(data) {
     var deleteBtn = $("<button>");
         deleteBtn.text("Remove Listing");
         deleteBtn.addClass("delete btn btn-danger");
+        deleteBtn.attr("data-id", data[i].id);
 
         $("#userListing-" + i).append(deleteBtn);
+
       }
     }
+    $(".delete").on("click", deleteListing);
 }
 
 
