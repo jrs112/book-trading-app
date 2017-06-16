@@ -45,6 +45,16 @@ nav {
 	border: none;
 }
 
+#currentUser {
+	padding: 10px;
+	margin: 15px;
+	font-family: 'Special Elite', cursive;
+	font-style: bold;
+	font-size: 40px;
+	color: #3D632A;
+	background: rgba(217, 234, 211, .25);
+}
+
 label {
 	font-family: 'Special Elite', cursive;
 }
