@@ -44,7 +44,7 @@ app.post("/api/newlisting", function(req, res) {
   });
 
 //Delete a listing
-app.delete("/api/posts/:id",function(req, res) {
+app.post("/api/delete/:id",function(req, res) {
 	db.Listing.destroy({
 		where: {
 			id: req.params.id
@@ -64,6 +64,7 @@ app.put("/api/listings", function(req, res) {
 		}
 	}).then(function(booksDb) {
 		res.json(booksDb);
+
 	});
   });
 };
