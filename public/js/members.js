@@ -99,6 +99,58 @@ function createNewOfferRow(data) {
     }
   }
 
+  $(".denyButton").on("click", function(event) {
+    event.preventDefault();
+    offerCont.empty();
+    offerCont.show();
+    var denyProposeId = {
+      id: $(this).attr("data-id")
+    };
+    $.get("/api/listings/" + denyProposeId.id)
+    .done(function(results) {
+      var denyWellSection = $("<div>");
+      denyWellSection.addClass("well");
+      denyWellSection.attr("id", "deny-book-well");
+      offerCont.append(denyWellSection);
+      $("#deny-book-well").append("<h2>Are you sure you want to decline the trade proposal for your " +
+                                    results.title  + " by " + results.author + " in exchange for " +
+                                    results.proposal_first_name + " " + results.proposal_last_name + "'s " +
+                                    results.proposal_title + " by " + results.proposal_author + "?</h2>");
+      $("#deny-book-well").append("<button class='declineOffer btn btn-danger'>Yes, Decline This Trade!</button>");
+      $("#deny-book-well").append("<a href='/members' class='btn btn-primary'> Back to Offer List</a>");
+      $(".declineOffer").on("click", function(denyEvent) {
+        denyEvent.preventDefault();
+        var proposeTitle = "none";
+        var proposeAuthor = "none";
+        var proposeFirstName = "none";
+        var proposeLastName = "none";
+        var declineInfo = {
+          id: results.id,
+          propose_title: proposeTitle,
+          propose_author: proposeAuthor,
+          propose_first_name: proposeFirstName,
+          propose_last_name: proposeLastName,
+          offer: false
+        };
+        updateProposal(declineInfo);
+        var to = results.proposal_email;
+        var subject = "Your Book Trade Proposal Has Been Declined!"
+        var html = "<h1>Unfortunately, your trade proposal for " + results.title + " by " + results.author + " was declined by the owner.</h1>" +
+                  "<img src='https://az616578.vo.msecnd.net/files/responsive/cover/main/desktop/2016/12/08/636167736301696436-543435143_140815-its-ok.jpg' alt='book-image' style='width:300px;height:250px;'>" +
+                   "<h2>You can go back to <a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a> to see what other books" +
+                   " are available for trade!</h2><br><p>Thank for using the Bookshelf!</p>";
+        $(".declineOffer").text("Sending Decline Confirmation...");
+        $.get("http://localhost:8080/send",{to:to,subject:subject,html:html}, function (dataEmail) {
+          if (dataEmail == "sent") {
+            alert("Decline Confirmation Sent");
+            window.location.href = "/members"
+          }
+        });
+      });
+
+    });
+  });
+
   $(".acceptButton").on("click", function(event) {
     event.preventDefault();
     offerCont.empty();
@@ -106,10 +158,8 @@ function createNewOfferRow(data) {
     var acceptProposeId = {
       id: $(this).attr("data-id")
     };
-    console.log(acceptProposeId.id);
     $.get("/api/listings/" + acceptProposeId.id)
     .done(function(results) {
-      console.log(results);
       var acceptWellSection = $("<div>");
       acceptWellSection.addClass("well");
       acceptWellSection.attr("id", "accept-book-well");
@@ -130,14 +180,15 @@ function createNewOfferRow(data) {
         var to = results.proposal_email;
         var subject = "Accepted Book Trade Proposal!";
         var html = "<h1>Your Trade Proposal for " + results.title + " By " + results.author + " Has Been Accepted!</h1>" +
-                   "<img src='http://images.clipartpanda.com/book-20clipart-book10.png' alt='book-image' style='width:300px;height:250px;'>" +
+                   "<img src='http://clipartix.com/wp-content/uploads/2016/08/Handshake-clipart-2.jpg' alt='book-image' style='width:300px;height:250px;'>" +
                    "<h4>" + req.first_name + " " + req.last_name + " has accepted your proposal to trade " + results.title + " by " +
                    results.author + "!</h4><h4>You can e-mail " + req.first_name + " at " + req.email + " to discuss how you two " +
-                   "would like to exchange your books.</h4><br>";
+                   "would like to exchange your books.</h4>" +
+                   "<br><p><a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a></p>";
         $(".acceptOffer").text("Sending Trade Confirmation...")
         $.get("http://localhost:8080/send",{to:to,subject:subject,html:html}, function(data) {
             if(data == "sent") {
-              alert("Proposal sent!");
+              alert("Trade Confirmation Sent!");
               window.location.href = "/members";
             }
         });
