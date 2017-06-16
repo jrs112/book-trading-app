@@ -80,6 +80,18 @@ function createNewOfferRow(data) {
         $("#userOffer-"+i).append("<h2>Proposed Title: "+data[i].proposal_title+"</h2>");
         $("#userOffer-"+i).append("<h2>Author of Proposed Trade: "+data[i].proposal_author+"</h2>");
         $("#userOffer-"+i).append("<h2>User Proposing Trade: "+data[i].proposal_email+"</h2>");
+
+    var acceptBtn = $("<button>");
+        acceptBtn.text("Accept Trade!");
+        acceptBtn.addClass("btn btn-success");
+        }
+        $("#userListing-" + i).append(acceptBtn);
+
+    var denyBtn = $("<button>");
+        denyBtn.text("Remove Listing");
+        denyBtn.addClass("btn btn-danger");
+        }
+        $("#userListing-" + i).append(denyBtn);
     }
   }
 }
