@@ -1,14 +1,61 @@
 body {
-	background-color: #EEEEEE;
+	background-image: url("books.jpeg");
+  	background-size: cover;
+  }
+
+h1 {
+	font-size: 120px;
+	font-family: 'Special Elite', cursive;
+	font-style: bold;
 }
 
-.jumbotron {
-	background-color: #FFFFFF;
+h2 {
+	font-family: 'Special Elite', cursive;
+}
+
+h3 {
+	font-family: 'Special Elite', cursive;
+	font-style: bold;
+}
+
+.well {
+	font-family: 'Special Elite', cursive;
+}
+
+
+#introPanel {
+	background: rgba(202, 178, 154, 0.5);
+	border: none;
+	text-align: center;
+	padding: 30px;
+}
+
+#formStyle {
+	background: rgba(202, 178, 154, 0.85);
+	border: none;
+}
+
+#formHeaderStyle {
+	background-color:#4B4239;
+	color: #F1EBE5;
+	border: none;
+}
+
+label {
+	font-family: 'Special Elite', cursive;
+}
+
+.btn {
+	font-family: 'Special Elite', cursive;
 }
 
 #desc {
 	text-align: center;
 	font-style: italic;
+}
+
+#submit {
+	font-family: 'Special Elite', cursive;
 }
 
 .sendProposal {
