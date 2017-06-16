@@ -18,7 +18,7 @@ $(document).ready(function() {
       email: $("#email-input").val().trim(),
       password: passwordInput.val().trim(),
       password2: passwordInput2.val().trim()
-      
+
     };
     console.log(userData);
    if (!userData.firstName || !userData.lastName || !userData.email || !userData.password ||!userData.password2 ) {
@@ -47,6 +47,7 @@ $(document).ready(function() {
     }).then(function(data) {
        //window.location.replace(data);
        console.log("sucess");
+       window.location.href = "/";
     });
     // .catch(function(err) {
     //   console.log(err);
