@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   $.get("/api/userinfo", function(req) {
     console.log(req);
-
+    $("#currentUser").append("Welcome " + req.first_name + " " + req.last_name);
     var listingCont = $("#listingCont");
     var offerCont = $("#offerCont");
 
