@@ -21,9 +21,10 @@ body {
 }
 
 #txtEmail {
-	font-color: #000000;
-}
+	color: #000000;
+}	
 
 #txtPassword {
-	font-color: #000000;
+	color: #000000;
+	
 }

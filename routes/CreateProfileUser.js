@@ -27,6 +27,8 @@ module.exports = function(app) {
         req.checkBody('password2', 'Passwords do not match, please try again.').equals(req.body.password);
         const errors = req.validationErrors();
         if (errors) {
+          
+
            throw console.log(errors);
 
         }

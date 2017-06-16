@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
       validate: {
         isEmail: true,
          isUnique: function(value, next) {
@@ -24,28 +25,31 @@ module.exports = function(sequelize, DataTypes) {
                     where: {email: value},
                     attributes: ['id']
                 })
-                    .then(function(error, user) {
+                    .then(function(user) {
 
-                        if (error)
-                            // Some unexpected error occured with the find method.
-                            return next(error);
+                        // if (error)
+                        //     // Some unexpected error occured with the find method.
+                        //     return next('blah');
 
-                        if (user)
+                        if (user){
+                          console.log(user);
                             // We found a user with this email address.
                             // Pass the error to the next method.
                             return next('Email address already in use!');
-
+                          }
+                          console.log("after");
                         // If we got this far, the email address hasn't been used yet.
                         // Call next with no arguments when validation is successful.
                         next();
 
                     }).catch(function(error) {
+                      console.log(error);
                       res.json(error);
                           });
 
                   
       }
-    }
+     }
   
     },
     // The password cannot be null
