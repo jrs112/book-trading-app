@@ -18,10 +18,14 @@ h3 {
 	font-style: bold;
 }
 
+nav {
+	font-family: 'Special Elite', cursive;
+	background-color:#4B4239;
+}
+
 .well {
 	font-family: 'Special Elite', cursive;
 }
-
 
 #introPanel {
 	background: rgba(202, 178, 154, 0.5);
@@ -47,6 +51,8 @@ label {
 
 .btn {
 	font-family: 'Special Elite', cursive;
+	background-color: #8C0303;
+	border: none;
 }
 
 #desc {
@@ -88,4 +94,5 @@ label {
 
 #txtPassword {
 	color: #000000;
+
 }
