@@ -85,13 +85,11 @@ function createNewOfferRow(data) {
     var acceptBtn = $("<button>");
         acceptBtn.text("Accept Trade!");
         acceptBtn.addClass("btn btn-success");
-        }
         $("#userListing-" + i).append(acceptBtn);
 
     var denyBtn = $("<button>");
         denyBtn.text("Decline Trade");
         denyBtn.addClass("btn btn-danger");
-        }
         $("#userListing-" + i).append(denyBtn);
     }
   }
