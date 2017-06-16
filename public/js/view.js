@@ -91,13 +91,13 @@ $(".cancelProposal").on("click", function(cancelEvent) {
                             proposal_first_name: proposeFirstName,
                             proposal_last_name: proposeLastName,
                             offer: false
-                        }
+                        };
                         updateProposal(proposalInfo);
                         var to = cancelResults.User.email;
                         var subject = "Cancelled Book Proposal";
                         var html = "<h1 class='text-center'>The proposal for " + cancelResults.title + " has been cancelled!</h1>" +
                                    "<img src='http://images.clipartpanda.com/book-20clipart-book10.png' alt='book-image' style='width:300px;height:250px;'>" +
-                                  "<h3>The proposal was cancelled by: " + req.first_name + " " + req.last_name + " at " + req.email + "</h3>"
+                                  "<h3>The proposal was cancelled by: " + req.first_name + " " + req.last_name + " at " + req.email + "</h3><br>"
                         $(".sendCancel").text("Cancelling Proposal...Please wait");
                         $.get("http://localhost:8080/send",{to:to,subject:subject,html:html},function(dataEmail){
                         if(dataEmail=="sent")
@@ -170,7 +170,8 @@ $(".propose").on("click", function(event) {
                                   "<ul><li>Book Title: " + proposeTitle + "</li>" +
                                   "<li>Author: " + proposeAuthor + "</li>" +
                                   "<li>Proposal was sent by: " + proposeFirstName + " " + proposeLastName + " at " + proposeEmail + "</li></ul>" +
-                                  "<h4>Please go to <a href='https://www.w3schools.com/html/'>www.thebookshelf.com</a> to accept or reject this proposal!</h4>";
+                                  "<h4>Please go to <a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a> to accept or reject this proposal!</h4>" +
+                                  "<br><p>Thank you from the Bookshelf!</p>";
                         $(".sendProposal").text("Sending Proposal...Please wait");
                         $.get("http://localhost:8080/send",{to:to,subject:subject,html:html},function(dataEmail){
                         if(dataEmail=="sent")
