@@ -19,6 +19,14 @@ body {
     margin-right: 10px;
 }
 
+.acceptButton {
+    margin-right: 10px;
+}
+
+.acceptOffer {
+    margin-right: 10px;
+}
+
 #postBtn {
 	float: right;
 }
