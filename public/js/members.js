@@ -18,17 +18,9 @@ $(document).ready(function() {
             createNewListingRow(data);
 });
 
-//Display offers for a specific user's listings
-// $.get("/api/listings", function(data) {
-//   // For each book that our server sends us back
-//   for (var i = 0; i < data.length; i++) {
-//         if(data[i].available && data[i].offer) {
-//             initializeRows(data);
-//           }
-//         }
-// });
-
-
+ $.get("/api/listings", function(data) {
+            createNewOfferRow(data);
+ })
 
 
 //Delete Listing Functions
@@ -52,104 +44,46 @@ function handlePostDelete() {
 
 //Append listings to listing pane in HTML
 
-function createNewListingRow(post) {
-    for (var i = 0; i < post.length; i++) {
-          if(post[i].UserId === req.id) {
+function createNewListingRow(data) {
+    for (var i = 0; i < data.length; i++) {
+          if(data[i].UserId === req.id) {
 
-    console.log(post[i]);
     //Listing panel and heading
-    var newListingPanel = $("<div>");
-    newListingPanel.addClass("panel panel-default");
+    var newWell = $("<div>");
+        newWell.addClass("well");
+        newWell.attr("id","userListing-" + i);
+        listingCont.append(newWell);        
+        $("#userListing-" + i).append("<h2>Title: " + data[i].title + "</h2>");
+        $("#userListing-" + i).append("<h2>Author: " + data[i].author + "</h2>");
+        $("#userListing-" + i).append("<h2>Looking to trade for: " + data[i].preferred_genre + "</h2>");
+        $("#userListing-" + i).append("<h2>Posted By: " + data[i].UserId + "</h2>");
 
-
-
-
-     //Listing panel and heading
-            var newListingPanel = $("<div>");
-            newListingPanel.addClass("panel panel-default");
-
-            var newListingPanelHeading = $("<div>");
-            newListingPanelHeading.addClass("panel-heading");
-
-            var newListingPanelBody = $("<div>");
-            newListingPanelBody.addClass("panel-body");
-    
-    var newListingTitle = $("<h2>");
-    var newListingAuthor = $("<h3>");
-    var newListingGenrePref = $("<h3>");
-    var newListingUser = $("<h5>");
-    newListingTitle.text(post[i].title + " ");
-    newListingAuthor.text("Author: " + post[i].author);
-    newListingGenrePref.text("Preferred Genre to Trade: " + post[i].preferred_genre);
-    newListingUser.text("Posted by: " + req.email);
-
-    //Append buttons to screen
-
-    newListingPanelHeading.append(deleteBtn);
-    newListingPanelHeading.append(newListingTitle);
-    listingCont.append(newListingPanelHeading);
-
-    newListingPanelBody.append(newListingAuthor);
-    newListingPanelBody.append(newListingGenrePref);
-    newListingPanelBody.append(newListingUser);
-    listingCont.append(newListingPanelBody);
-
-    newListingPanel.append(newListingPanelHeading);
-    newListingPanel.append(newListingPanelBody);
-    listingCont.append(newListingPanel);
-
+    var deleteBtn = $("<button>");
+        deleteBtn.text("Remove Listing");
+        deleteBtn.addClass("delete btn btn-danger");
+        }
+        $("#userListing-" + i).append(deleteBtn);
+    }
 }
-}
-  }
-
-       
 
 
 //Append Offers to offer pane in HTML
 function createNewOfferRow(data) {
   for (var i = 0; i < data.length; i++) {
     if(data[i].available && data[i].offer) {
-    //Listing panel and heading
-    var newOfferPanel = $("<div>");
-    newOfferPanel.addClass("panel panel-primary");
 
-    var newOfferPanelHeading = $("<div>");
-    newOfferPanelHeading.addClass("panel-heading");
-
-    var newOfferPanelBody = $("<div>");
-    newOfferPanelBody.addClass("panel-body");
-
-    //Edit and delete buttons
-    var deleteBtn = $("<button>");
-    deleteBtn.text("Remove Listing");
-    deleteBtn.addClass("delete btn btn-danger");
-
-    var newListingTitle = $("<h2>");
-    var newProposedTitle = $("<h3>");
-    var newProposedAuthor = $("<h3>");
-    var newOfferUser = $("<h5>");
-    newListingTitle.text("Title to trade: " + post.Listing.title + " ");
-    newProposedTitle.text("Proposed title to trade: " + post.Listing.proposal_title + " ");
-    newProposedAuthor.text("Author of propsed trade: " + post.Listing.proposal_author);
-    newOfferUser.text("User proposing trade: " + post.Listing.proposal_email);
-
-    //Append buttons to screen
-    newListingPanelHeading.append(deleteBtn);
-    newListingPanelHeading.append(newListingTitle);
-
-    newListingPanelBody.append(newProposedTitle);
-    newListingPanelBody.append(newProposedAuthor);
-    newListingPanelBody.append(newOfferUser);
-
-    newListingPanel.append(newListingPanelHeading);
-    newListingPanel.append(newListingPanelBody);
-    newListingPanel.data("post", post);
-
-    return newOfferPanel;
+    var offerWell = $("<div>");
+        offerWell.addClass("well");
+        offerWell.attr("id","userOffer-" + i);
+        offerCont.append(offerWell),h2;
+        $("#userOffer-"+i).append("<h2>Title to Trade: " +data[i].title+"</h2>");
+        $("#userOffer-"+i).append("<h2>Proposed Title: "+data[i].proposal_title+"</h2>");
+        $("#userOffer-"+i).append("<h2>Author of Proposed Trade: "+data[i].proposal_author+"</h2>");
+        $("#userOffer-"+i).append("<h2>User Proposing Trade: "+data[i].proposal_email+"</h2>");
     }
   }
+}
 
-});
 });
 
 
