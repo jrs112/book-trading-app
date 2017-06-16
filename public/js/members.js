@@ -20,7 +20,7 @@ $(document).ready(function() {
 
  $.get("/api/listings", function(data) {
             createNewOfferRow(data);
- })
+ });
 
 
 //Delete Listing Functions
@@ -52,17 +52,18 @@ function createNewListingRow(data) {
     var newWell = $("<div>");
         newWell.addClass("well");
         newWell.attr("id","userListing-" + i);
-        listingCont.append(newWell);        
+        listingCont.append(newWell);
         $("#userListing-" + i).append("<h2>Title: " + data[i].title + "</h2>");
         $("#userListing-" + i).append("<h2>Author: " + data[i].author + "</h2>");
         $("#userListing-" + i).append("<h2>Looking to trade for: " + data[i].preferred_genre + "</h2>");
-        $("#userListing-" + i).append("<h2>Posted By: " + data[i].UserId + "</h2>");
+        $("#userListing-" + i).append("<h2>Posted By: " + req.email + "</h2>");
 
     var deleteBtn = $("<button>");
         deleteBtn.text("Remove Listing");
         deleteBtn.addClass("delete btn btn-danger");
-        }
+
         $("#userListing-" + i).append(deleteBtn);
+      }
     }
 }
 
@@ -75,7 +76,7 @@ function createNewOfferRow(data) {
     var offerWell = $("<div>");
         offerWell.addClass("well");
         offerWell.attr("id","userOffer-" + i);
-        offerCont.append(offerWell),h2;
+        offerCont.append(offerWell);
         $("#userOffer-"+i).append("<h2>Title to Trade: " +data[i].title+"</h2>");
         $("#userOffer-"+i).append("<h2>Proposed Title: "+data[i].proposal_title+"</h2>");
         $("#userOffer-"+i).append("<h2>Author of Proposed Trade: "+data[i].proposal_author+"</h2>");
@@ -96,6 +97,34 @@ function createNewOfferRow(data) {
   }
 }
 
+});
+
+  $("#postBtn").on("click", function(event) {
+  event.preventDefault();
+  $.get("/api/userinfo", function(req) {
+    console.log(req);
+  // Make a newBook object
+  var newBook = {
+    title: $("#titleInput").val().trim(),
+    author: $("#authorInput").val().trim(),
+    genre: $("#genreInput").val().trim(),
+    UserId: req.id
+
+  };
+  // Send an AJAX POST-request with jQuery
+  $.post("/api/newlisting", newBook)
+    // On success, run the following code
+    .done(function(data) {
+      // Log the data we found
+      console.log(data);
+    });
+  // Empty each input box by replacing the value with an empty string
+  $("#titleInput").val("");
+  $("#authorInput").val("");
+  $("#genreInput").val("");
+});
+  window.location.href = "/members";
+});
 });
 
 

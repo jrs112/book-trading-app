@@ -31,11 +31,17 @@ app.get("/api/listings/:id", function(req,res) {
 });
 
 //Create a listing
-app.post("/api/posts/:id", function(req, res) {
-	db.Listing.create(req.body).then(function(booksDb) {
-		res.json(booksDb);
-	});
-});
+app.post("/api/newlisting", function(req, res) {
+
+    console.log(req.body);
+    db.Listing.create({
+      title: req.body.title,
+      author: req.body.author,
+      preferred_genre: req.body.genre,
+      UserId: req.body.UserId
+    });
+
+  });
 
 //Delete a listing
 app.delete("/api/posts/:id",function(req, res) {

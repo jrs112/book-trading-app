@@ -8,7 +8,7 @@ var passport = require("./config/passport");
 var expressValidator = require('express-validator');
 
 // Setting up port and requiring models for syncing
-var PORT = process.env.PORT;
+var PORT = process.env.PORT || 8080;
 var db = require("./models/index.js");
 require("./associations")(db);
 
@@ -57,7 +57,7 @@ app.get("/send",function(req,res){
 });
 
 // Syncing our database and logging a message to the user upon success
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync({force: false}).then(function() {
   app.listen(PORT, function() {
     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
   });
