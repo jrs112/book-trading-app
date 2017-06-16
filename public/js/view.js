@@ -173,7 +173,7 @@ $(".propose").on("click", function(event) {
                                   "<h4>Please go to <a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a> to accept or reject this proposal!</h4>" +
                                   "<br><p>Thank you from the Bookshelf!</p>";
                         $(".sendProposal").text("Sending Proposal...Please wait");
-                        $.get("https://lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/send",{to:to,subject:subject,html:html},function(dataEmail){
+                        $.get("https://localhost:3306/send",{to:to,subject:subject,html:html},function(dataEmail){
                         if(dataEmail=="sent")
                         {
                             alert("Proposal sent!");
