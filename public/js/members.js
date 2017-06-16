@@ -88,7 +88,7 @@ function createNewOfferRow(data) {
         $("#userListing-" + i).append(acceptBtn);
 
     var denyBtn = $("<button>");
-        denyBtn.text("Remove Listing");
+        denyBtn.text("Decline Trade");
         denyBtn.addClass("btn btn-danger");
         }
         $("#userListing-" + i).append(denyBtn);
