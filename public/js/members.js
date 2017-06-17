@@ -137,7 +137,7 @@ function createNewOfferRow(data) {
                    "<h2>You can go back to <a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a> to see what other books" +
                    " are available for trade!</h2><br><p>Thank for using the Bookshelf!</p>";
         $(".declineOffer").text("Sending Decline Confirmation...");
-        $.get("https://localhost:8080/send",{to:to,subject:subject,html:html}, function (dataEmail) {
+        $.get("/send",{to:to,subject:subject,html:html}, function (dataEmail) {
           if (dataEmail == "sent") {
             alert("Decline Confirmation Sent");
             window.location.href = "/members"
@@ -183,7 +183,7 @@ function createNewOfferRow(data) {
                    "would like to exchange your books.</h4>" +
                    "<br><p><a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a></p>";
         $(".acceptOffer").text("Sending Trade Confirmation...")
-        $.get("https://localhost:8080/send",{to:to,subject:subject,html:html}, function(data) {
+        $.get("/send",{to:to,subject:subject,html:html}, function(data) {
             if(data == "sent") {
               alert("Trade Confirmation Sent!");
               window.location.href = "/members";
