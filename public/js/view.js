@@ -99,7 +99,7 @@ $(".cancelProposal").on("click", function(cancelEvent) {
                                    "<img src='http://images.clipartpanda.com/book-20clipart-book10.png' alt='book-image' style='width:300px;height:250px;'>" +
                                   "<h3>The proposal was cancelled by: " + req.first_name + " " + req.last_name + " at " + req.email + "</h3><br>"
                         $(".sendCancel").text("Cancelling Proposal...Please wait");
-                        $.get("https://localhost:8080/send",{to:to,subject:subject,html:html},function(dataEmail){
+                        $.get("http://localhost:8080/send",{to:to,subject:subject,html:html},function(dataEmail){
                         if(dataEmail=="sent")
                         {
                             alert("Proposal Cancelled!");
@@ -173,7 +173,7 @@ $(".propose").on("click", function(event) {
                                   "<h4>Please go to <a href='https://radiant-eyrie-66256.herokuapp.com/'>www.thebookshelf.com</a> to accept or reject this proposal!</h4>" +
                                   "<br><p>Thank you from the Bookshelf!</p>";
                         $(".sendProposal").text("Sending Proposal...Please wait");
-                        $.get("https://localhost:3306/send",{to:to,subject:subject,html:html},function(dataEmail){
+                        $.get("http://localhost:3306/send",{to:to,subject:subject,html:html},function(dataEmail){
                         if(dataEmail=="sent")
                         {
                             alert("Proposal sent!");
